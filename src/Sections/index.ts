@@ -1,0 +1,1 @@
+export { default as BikesStolenInMunich } from './BikesStolenInMunich/BikesStolenInMunich';
