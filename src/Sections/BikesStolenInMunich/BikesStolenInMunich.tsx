@@ -1,4 +1,5 @@
 import "./BikesStolenInMunich.css";
+import React, { useState, useEffect } from "react";
 import {
   BikesFiltered,
   ErrorNotify,
@@ -8,13 +9,12 @@ import {
 } from "../../Components";
 import useGet from "../../Custom-hooks/useGet";
 import { endPoint } from "../../environment";
-import React from "react";
+import { ParamsObjTypes } from "../../DTOs/DTOs";
 
-const BikesStolenInMunich = () => {
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [isSearchStarted, setIsSearchStarted] = React.useState(false);
-  const [title, setTitle] = React.useState("");
-  const [paramsObj, setParamsObj] = React.useState({
+const BikesStolenInMunich: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [title, setTitle] = useState<string>("");
+  const [paramsObj, setParamsObj] = useState<ParamsObjTypes>({
     page: currentPage,
     per_page: 10,
     title: title,
@@ -28,7 +28,7 @@ const BikesStolenInMunich = () => {
     useGet(endPoint.search, paramsObj);
 
   /* Update params */
-  React.useEffect(() => {
+  useEffect(() => {
     setParamsObj({
       page: currentPage,
       per_page: 10,
@@ -37,33 +37,23 @@ const BikesStolenInMunich = () => {
   }, [currentPage, title]);
 
   /* Get data when update params */
-  React.useEffect(() => {
-    getDataFiltered();
-  }, [paramsObj || currentPage]);
-
-  /* Get data when update params */
-  React.useEffect(() => {
-    if (isSearchStarted) {
+  useEffect(() => {
+    if (!title) {
       getDataFiltered();
     }
-  }, [isSearchStarted]);
+  }, [paramsObj]);
 
   return (
     <div className="bikes-stolen-in-munich flexCenterColumn">
       {loading && <Loading />}
       {errorMessage && <ErrorNotify message={errorMessage} />}
       <h1>Bikes stolen in Munich</h1>
-      <SearchForBikes
-        setTitle={setTitle}
-        setIsSearchStarted={setIsSearchStarted}
-      />
+      <SearchForBikes setTitle={setTitle} getDataFiltered={getDataFiltered} />
 
       <Pagination
         allData={allData}
-        dataPerPage={dataFiltered}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        isSearchStarted={isSearchStarted}
       />
 
       <BikesFiltered dataPerPage={dataFiltered} success={success} />

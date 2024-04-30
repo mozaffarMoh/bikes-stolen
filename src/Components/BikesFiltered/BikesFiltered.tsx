@@ -1,11 +1,17 @@
 import "./BikesFiltered.css";
 import noBikeImage from "../../assets/images/noBike.svg";
+import { Bike } from "../../DTOs/DTOs";
 
-const BikesFiltered = ({ dataPerPage, success }: any) => {
+interface BikesFiltered {
+  dataPerPage: Array<Bike>;
+  success: boolean;
+}
+
+const BikesFiltered: React.FC<BikesFiltered> = ({ dataPerPage, success }) => {
   return (
     <div className="stolen-items flexEvenly">
       {dataPerPage &&
-        dataPerPage.map((item: any, index: number) => {
+        dataPerPage.map((item: Bike, index: number) => {
           const dateStolenMilliseconds = item.date_stolen * 1000;
           const dateStolen = new Date(dateStolenMilliseconds);
           const formattedDate = `${
