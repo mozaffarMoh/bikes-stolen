@@ -11,6 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
+  "homepage": "https://mozaffarmoh.github.io/bikes-stolen",
   "dependencies": {
     "axios": "^1.6.8",
     "gh-pages": "^6.1.1",
