@@ -50,6 +50,14 @@ const BikesStolenInMunich: React.FC = () => {
     }
   }, [paramsObj]);
 
+  /* if data fetching is success or fail back to default to prevent auto search*/
+  React.useEffect(() => {
+    if (isSuccess || errorMessage) {
+      setIsSearchStarted(false);
+      setIsPaginationNavigate(false);
+    }
+  }, [isSuccess, errorMessage]);
+
   return (
     <div className="bikes-stolen-in-munich flexCenterColumn">
       {loading && <Loading />}
