@@ -5,20 +5,21 @@ import React from "react";
 
 interface BikesFilteredProps {
   filteredData: Array<Bike>;
-  success: boolean;
+  isSuccess: boolean;
   firstDate: string;
   secondDate: string;
 }
 
 const BikesFiltered: React.FC<BikesFilteredProps> = ({
   filteredData,
-  success,
+  isSuccess,
   firstDate,
   secondDate,
 }) => {
   const [updateFilteredData, setUpdateFilteredData] =
     React.useState<Array<Bike>>(filteredData);
 
+  /* filterData based on range between first data and second data */
   React.useEffect(() => {
     const startDate = new Date(firstDate);
     const endDate = new Date(secondDate);
@@ -37,7 +38,7 @@ const BikesFiltered: React.FC<BikesFilteredProps> = ({
     } else {
       setUpdateFilteredData(filteredData);
     }
-  }, [filteredData, success]);
+  }, [filteredData, isSuccess]);
 
   return (
     <div className="stolen-items flexEvenly">
@@ -72,7 +73,9 @@ const BikesFiltered: React.FC<BikesFilteredProps> = ({
           </p>
         </div>
       ))}
-      {success && filteredData?.length === 0 && <h1>Data is empty</h1>}
+      {isSuccess && filteredData?.length === 0 && (
+        <p className="data-empty">There is no data !!</p>
+      )}
     </div>
   );
 };

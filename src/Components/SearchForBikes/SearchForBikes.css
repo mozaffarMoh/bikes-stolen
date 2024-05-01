@@ -31,27 +31,28 @@
 
     button,
     .reset-button {
-        width: 70%;
+        width: 50%;
         height: 70px;
         border-radius: 10px;
         border: none;
         font-size: 20px;
         cursor: pointer;
-        background-color: rgb(221, 213, 213);
+        transition: all .5s ease;
+        background-color: rgb(238, 181, 75);
+        color: white;
 
         &:hover {
-            background-color: rgb(194, 188, 188);
+            background-color: rgb(236, 163, 28);
         }
 
         &:active {
-            background-color: rgb(168, 167, 167);
+            background-color: rgb(189, 129, 18);
         }
     }
 
     .reset-button {
         width: 200px;
         margin-top: 10px;
-        color: white;
         height: 50px;
         background-color: rgb(202, 28, 28);
 

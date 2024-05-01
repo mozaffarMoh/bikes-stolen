@@ -1,5 +1,5 @@
 import "./BikesStolenInMunich.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   BikesFiltered,
   ErrorNotify,
@@ -22,12 +22,15 @@ const BikesStolenInMunich: React.FC = () => {
     title: title,
   });
 
+  /* Get All Bikes stolen */
   const [allData] = useGet(endPoint.search, null);
-  const [filteredData, loading, getFilteredData, success, errorMessage] =
+
+  /* Get Filtered Bikes stolen */
+  const [filteredData, loading, getFilteredData, isSuccess, errorMessage] =
     useGet(endPoint.search, paramsObj);
 
   /* Update params */
-  useEffect(() => {
+  React.useEffect(() => {
     setParamsObj({
       page: currentPage,
       per_page: 10,
@@ -35,8 +38,8 @@ const BikesStolenInMunich: React.FC = () => {
     });
   }, [currentPage, title]);
 
-  /* Get data when update params */
-  useEffect(() => {
+  /* Get data when update paramsObj */
+  React.useEffect(() => {
     if (!title) {
       getFilteredData();
     }
@@ -65,7 +68,7 @@ const BikesStolenInMunich: React.FC = () => {
 
       <BikesFiltered
         filteredData={filteredData}
-        success={success}
+        isSuccess={isSuccess}
         firstDate={firstDate}
         secondDate={secondDate}
       />

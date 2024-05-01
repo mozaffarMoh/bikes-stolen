@@ -12,7 +12,10 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   setCurrentPage,
 }) => {
+  /* Define the total number of pages for creating pagination.*/
   let totalPages = Math.ceil(allData?.length / 10);
+
+  /* Change the current page */
   const handlePageClick = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
