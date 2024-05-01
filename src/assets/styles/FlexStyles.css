@@ -32,6 +32,11 @@
 
 /* Flex Column styles */
 
+.flexStartColumn {
+    display: flex;
+    flex-direction: column;
+}
+
 .flexCenterColumn {
     display: flex;
     flex-direction: column;
@@ -52,4 +57,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+}
+
+.flexStartColumnItemsCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }

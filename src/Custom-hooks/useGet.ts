@@ -1,28 +1,41 @@
 import React from "react";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { config } from "../environment";
+import { Bike } from "../DTOs/DTOs";
 
-const useGet = (endPoint: string, paramObj: any) => {
-    const [data, setData] = React.useState([]);
-    const [loading, setLoading] = React.useState(false);
-    const [success, setSuccess] = React.useState(false);
-    const [errorMessage, setErrorMessage] = React.useState("");
-    let params = `?page=${paramObj.page}&per_page=${paramObj.per_page}&query=${paramObj.title ? paramObj.title : ''}&location=munich&stolenness=proximity`
+interface ParamObj {
+    page: number;
+    per_page: number;
+    title?: string;
+}
+
+type ApiResponse = AxiosResponse<{ bikes: Bike[] }> | undefined;
+type ApiError = AxiosError<{ err: string; error?: string }> | undefined;
+type UseGetData<T> = [T[], boolean, () => void, boolean, string];
+
+const useGet = (endPoint: string, paramObj: ParamObj | null): UseGetData<Bike> => {
+    const [data, setData] = React.useState<Bike[]>([]);
+    const [loading, setLoading] = React.useState<boolean>(false);
+    const [success, setSuccess] = React.useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = React.useState<string>("");
+    let paramsFilterdBikes: string = `?page=${paramObj?.page}&per_page=${paramObj?.per_page}&query=${paramObj?.title ? paramObj.title : ''}&location=munich&stolenness=proximity`
+    let paramsAllBikes: string = `?page=1&per_page=100&location=munich&stolenness=proximity`
+
 
     const getData = () => {
         setLoading(true)
         setSuccess(false)
         setErrorMessage("")
 
-        axios.get(config.url + endPoint + params)
-            .then((res) => {
+        axios.get(config.url + endPoint + (!paramObj ? paramsAllBikes : paramsFilterdBikes))
+            .then((res: ApiResponse) => {
                 setLoading(false)
-                setData(res?.data?.bikes);
+                setData(res?.data?.bikes || []);
                 setSuccess(true);
             })
-            .catch((err: any) => {
+            .catch((err: ApiError) => {
                 setLoading(false)
-                setErrorMessage(err.response?.data?.error)
+                setErrorMessage(err?.response?.data?.error || "An error occurred")
                 setTimeout(() => {
                     setErrorMessage("")
                 }, 3000);

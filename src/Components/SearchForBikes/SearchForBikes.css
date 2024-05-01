@@ -29,7 +29,8 @@
         }
     }
 
-    button {
+    button,
+    .reset-button {
         width: 70%;
         height: 70px;
         border-radius: 10px;
@@ -44,6 +45,22 @@
 
         &:active {
             background-color: rgb(168, 167, 167);
+        }
+    }
+
+    .reset-button {
+        width: 200px;
+        margin-top: 10px;
+        color: white;
+        height: 50px;
+        background-color: rgb(202, 28, 28);
+
+        &:hover {
+            background-color: rgb(221, 46, 46);
+        }
+
+        &:active {
+            background-color: rgb(190, 14, 14)
         }
     }
 }

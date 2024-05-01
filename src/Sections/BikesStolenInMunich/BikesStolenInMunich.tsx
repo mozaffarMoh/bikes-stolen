@@ -14,17 +14,16 @@ import { ParamsObjTypes } from "../../DTOs/DTOs";
 const BikesStolenInMunich: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [title, setTitle] = useState<string>("");
+  const [firstDate, setFirstDate] = React.useState<string>("");
+  const [secondDate, setSecondDate] = React.useState<string>("");
   const [paramsObj, setParamsObj] = useState<ParamsObjTypes>({
     page: currentPage,
     per_page: 10,
     title: title,
   });
 
-  const [allData]: any = useGet(endPoint.search, {
-    page: 1,
-    per_page: 100,
-  });
-  const [dataFiltered, loading, getDataFiltered, success, errorMessage]: any =
+  const [allData] = useGet(endPoint.search, null);
+  const [filteredData, loading, getFilteredData, success, errorMessage] =
     useGet(endPoint.search, paramsObj);
 
   /* Update params */
@@ -39,7 +38,7 @@ const BikesStolenInMunich: React.FC = () => {
   /* Get data when update params */
   useEffect(() => {
     if (!title) {
-      getDataFiltered();
+      getFilteredData();
     }
   }, [paramsObj]);
 
@@ -47,8 +46,16 @@ const BikesStolenInMunich: React.FC = () => {
     <div className="bikes-stolen-in-munich flexCenterColumn">
       {loading && <Loading />}
       {errorMessage && <ErrorNotify message={errorMessage} />}
-      <h1>Bikes stolen in Munich</h1>
-      <SearchForBikes setTitle={setTitle} getDataFiltered={getDataFiltered} />
+      <h1>BIKES STOLEN IN MUNICH</h1>
+      <SearchForBikes
+        title={title}
+        firstDate={firstDate}
+        secondDate={secondDate}
+        setTitle={setTitle}
+        setFirstDate={setFirstDate}
+        setSecondDate={setSecondDate}
+        getFilteredData={getFilteredData}
+      />
 
       <Pagination
         allData={allData}
@@ -56,7 +63,12 @@ const BikesStolenInMunich: React.FC = () => {
         setCurrentPage={setCurrentPage}
       />
 
-      <BikesFiltered dataPerPage={dataFiltered} success={success} />
+      <BikesFiltered
+        filteredData={filteredData}
+        success={success}
+        firstDate={firstDate}
+        secondDate={secondDate}
+      />
     </div>
   );
 };

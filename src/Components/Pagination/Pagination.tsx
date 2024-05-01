@@ -12,8 +12,7 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   setCurrentPage,
 }) => {
-  const totalPages: number = Math.ceil(allData?.length / 10);
-
+  let totalPages = Math.ceil(allData?.length / 10);
   const handlePageClick = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
@@ -34,7 +33,7 @@ const Pagination: React.FC<PaginationProps> = ({
         ))}
       </div>
       <p>
-        Total theft cases : <span>{allData.length}</span>
+        Total theft cases : <span>{allData?.length}</span>
       </p>
     </div>
   );
