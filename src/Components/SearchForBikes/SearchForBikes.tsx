@@ -9,6 +9,8 @@ interface SearchForBikesProps {
   setFirstDate: (firstDate: string) => void;
   setSecondDate: (secondDate: string) => void;
   setCurrentPage: (currentPage: number) => void;
+  setIsSearchStarted: (isSearchStarted: boolean) => void;
+  setIsPaginationNavigate: (isPaginationNavigate: boolean) => void;
   getFilteredData: () => void;
 }
 
@@ -20,11 +22,15 @@ const SearchForBikes: React.FC<SearchForBikesProps> = ({
   setFirstDate,
   setSecondDate,
   setCurrentPage,
+  setIsSearchStarted,
   getFilteredData,
+  setIsPaginationNavigate,
 }) => {
   /* Start search */
   const handleSearch = () => {
     setCurrentPage(1);
+    setIsPaginationNavigate(true);
+    setIsSearchStarted(true);
     getFilteredData();
   };
 

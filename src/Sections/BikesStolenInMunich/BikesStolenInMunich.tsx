@@ -16,6 +16,9 @@ const BikesStolenInMunich: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [firstDate, setFirstDate] = React.useState<string>("");
   const [secondDate, setSecondDate] = React.useState<string>("");
+  const [isSearchStarted, setIsSearchStarted] = useState<boolean>(false);
+  const [isPaginationNavigate, setIsPaginationNavigate] =
+    useState<boolean>(false);
   const [paramsObj, setParamsObj] = useState<ParamsObjTypes>({
     page: currentPage,
     per_page: 10,
@@ -38,10 +41,12 @@ const BikesStolenInMunich: React.FC = () => {
     });
   }, [currentPage, title]);
 
-  /* Get data when update paramsObj */
+  /* Get data when update paramsObj and check if pagination or search is on*/
   React.useEffect(() => {
-    if (!title) {
+    if (isSearchStarted || isPaginationNavigate) {
       getFilteredData();
+      setIsSearchStarted(false);
+      setIsPaginationNavigate(false);
     }
   }, [paramsObj]);
 
@@ -58,6 +63,8 @@ const BikesStolenInMunich: React.FC = () => {
         setFirstDate={setFirstDate}
         setSecondDate={setSecondDate}
         setCurrentPage={setCurrentPage}
+        setIsSearchStarted={setIsSearchStarted}
+        setIsPaginationNavigate={setIsPaginationNavigate}
         getFilteredData={getFilteredData}
       />
 
@@ -65,6 +72,7 @@ const BikesStolenInMunich: React.FC = () => {
         allData={allData}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        setIsPaginationNavigate={setIsPaginationNavigate}
       />
 
       <BikesFiltered

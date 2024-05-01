@@ -5,12 +5,14 @@ interface PaginationProps {
   allData: Array<Bike>;
   currentPage: number;
   setCurrentPage: (currentPage: number) => void;
+  setIsPaginationNavigate: (isPaginationNavigate: boolean) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
   allData,
   currentPage,
   setCurrentPage,
+  setIsPaginationNavigate,
 }) => {
   /* Define the total number of pages for creating pagination.*/
   let totalPages = Math.ceil(allData?.length / 10);
@@ -18,6 +20,7 @@ const Pagination: React.FC<PaginationProps> = ({
   /* Change the current page */
   const handlePageClick = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+    setIsPaginationNavigate(true);
   };
 
   return (
