@@ -8,6 +8,7 @@ interface SearchForBikesProps {
   setTitle: (title: string) => void;
   setFirstDate: (firstDate: string) => void;
   setSecondDate: (secondDate: string) => void;
+  setCurrentPage: (currentPage: number) => void;
   getFilteredData: () => void;
 }
 
@@ -18,10 +19,13 @@ const SearchForBikes: React.FC<SearchForBikesProps> = ({
   setTitle,
   setFirstDate,
   setSecondDate,
+  setCurrentPage,
   getFilteredData,
 }) => {
+  
   /* Start search */
   const handleSearch = () => {
+    setCurrentPage(1);
     getFilteredData();
   };
 

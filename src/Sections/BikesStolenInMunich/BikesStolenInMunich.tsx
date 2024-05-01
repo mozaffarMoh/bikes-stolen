@@ -57,6 +57,7 @@ const BikesStolenInMunich: React.FC = () => {
         setTitle={setTitle}
         setFirstDate={setFirstDate}
         setSecondDate={setSecondDate}
+        setCurrentPage={setCurrentPage}
         getFilteredData={getFilteredData}
       />
 
