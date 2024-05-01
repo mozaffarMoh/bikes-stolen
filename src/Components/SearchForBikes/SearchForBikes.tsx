@@ -22,7 +22,6 @@ const SearchForBikes: React.FC<SearchForBikesProps> = ({
   setCurrentPage,
   getFilteredData,
 }) => {
-  
   /* Start search */
   const handleSearch = () => {
     setCurrentPage(1);
@@ -34,6 +33,7 @@ const SearchForBikes: React.FC<SearchForBikesProps> = ({
     setTitle("");
     setFirstDate("");
     setSecondDate("");
+    setCurrentPage(1);
     getFilteredData();
   };
 
